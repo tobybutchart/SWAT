@@ -7,12 +7,22 @@
     include_once "./app/classes/api_log.php";
     include_once "./app/utilities/server_utils.php";
 
+/**
+ *  returns true is requested URI is to be handled as an internal API
+ *
+ *  @return     boolean     true if API
+ */
     function is_api(){
         $uri = \app\server_utils\get_uri();
         $a = explode("/", $uri);
         return (count($a) > 0 && $a[0] == "api");
     }
 
+/**
+ *  returns true if requested URI can be mapped to an internal API
+ *
+ *  @return     boolean     true if API is mappable
+ */
     function map_uri_to_api(){
         $uri = \app\server_utils\get_uri();
 
@@ -71,6 +81,13 @@
         return false;
     }
 
+/**
+ *  serves http response code, and logs response
+ *
+ *  @param     int                        $http_response_code    http response code to be served. i.e. 404, 500, etc.
+ *  @param     app\api_logging\api_log    $api_log               instance of api_log
+ *  @return    void
+ */
     function serve_invalid_request(int $http_response_code, \app\api_logging\api_log $api_log){
         $http_response_code = new \app\http_response_codes\http_response_code($http_response_code);
         $api_log->log_response($http_response_code->http_response_code, $http_response_code->to_string());
@@ -78,6 +95,13 @@
         die();
     }
 
+/**
+ *  checks API request contains required fields
+ *
+ *  @param     array     $required_fields    array of required fields
+ *  @param     array     $request            request body
+ *  @return    boolean                       true if all fields exist
+ */
     function check_required_fields(array $required_fields, array $request){
         foreach ($required_fields as $required_field){
             if(!array_key_exists($required_field, $request)){
@@ -88,12 +112,23 @@
         return true;
     }
 
+/**
+ *  creates instance of http_response_code, sets headers, etc.
+ *
+ *  @param     int       $http_response_code    http response code to serve
+ *  @return    void
+ */
     function throw_error(int $http_response_code){
         $rc = new \app\http_response_codes\http_response_code($http_response_code);
         $rc->set_header();
         echo $rc->to_string();
     }
 
+/**
+ *  returns true if basic authentication is needed,isn't supplied, or is incorrect
+ *
+ *  @return    boolean    
+ */
     function failed_authentication(){
         $uri = \app\server_utils\get_uri(false, true);
 
