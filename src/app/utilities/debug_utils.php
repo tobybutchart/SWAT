@@ -2,6 +2,12 @@
 
     namespace app\debug_utils;
 
+/**
+ *  dumps server global var into a readable format
+ *  ONLY TO BE USED FOR DEBUGGING
+ *
+ *  @return    void
+ */
     function server_dump(){
         $server_keys = array(
             'AUTH_TYPE',
@@ -58,14 +64,32 @@
         echo '</table>';
     }
 
+/**
+ *  dumps post global var into a readable format
+ *  ONLY TO BE USED FOR DEBUGGING
+ *
+ *  @return    void
+ */
     function post_dump(){
         pretty_dump($_POST);
     }
 
+/**
+ *  dumps session global var into a readable format
+ *  ONLY TO BE USED FOR DEBUGGING
+ *
+ *  @return    void
+ */
     function session_dump(){
         pretty_dump($_SESSION);
     }
 
+/**
+ *  a bit prettier than var_dump
+ *
+ *  @param     variant    $var    any variable to display
+ *  @return    void
+ */
     function pretty_dump($var){
         echo '<pre>';
         var_dump($var);
