@@ -1,0 +1,99 @@
+/* X-Small devices (portrait phones, less than 576px)             */
+/* No media query for `xs` since this is the default in Bootstrap */
+.swat-footer{
+    /*min-height: 40px;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #F8F9FA;
+}
+
+.btn-swat{
+    background-color: #134993;
+    color: white;
+}
+
+.btn-swat:hover{
+    color: #7A95BC;
+}
+
+.navbar-swat{
+    background-color: #134993!important;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.navbar-swat-logout{
+    float: left;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url('/web/img/hamburger.png');
+}
+
+.anchor-swat:hover {
+    color: #134993;
+}
+
+.anchor-swat {
+    color: #134993;
+}
+
+.h-swat{
+    height: 96%!important;
+}
+
+.swat-jumbo-top{
+    padding-top: 45%;
+    text-align: center;
+
+}
+
+.swat-btn-dropdown{
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.swat-logs-div{
+    max-height: 93%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.swat-log-viewer{
+    padding-top: 5%;
+}
+
+.btn-swat-save-fr{
+    float: right;
+}
+
+/* Small devices (landscape phones, 576px and up)                 */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up)                         */
+@media (min-width: 768px) {
+    .navbar-swat-logout{
+        float: right;
+    }
+}
+
+/* Large devices (desktops, 992px and up)                         */
+@media (min-width: 992px) {
+    .navbar-swat{
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}
+
+/* X-Large devices (large desktops, 1200px and up)                */
+@media (min-width: 1200px) {
+
+}
+
+/* XX-Large devices (larger desktops, 1400px and up)              */
+@media (min-width: 1400px) {
+
+}
