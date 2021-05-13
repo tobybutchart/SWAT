@@ -31,9 +31,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="https://github.com/tobybutchart/SWAT">View on Github</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Nested">Nested</a>
-                            </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">

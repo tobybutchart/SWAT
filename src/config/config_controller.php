@@ -18,12 +18,12 @@
                     $d = "\\";
 
                     $files = app\file_utils\file_list_to_array($base.$d, app\file_list_types\file_list_type::files_only, "ini", true);
-                    app\file_utils\array_to_list_group($files, $base, $url);
+                    app\file_utils\array_to_list_group($files, $url);
                 ?>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-9 h-swat">
                 <?php
-                    $f = app\file_utils\file_from_query_string($base, app\file_list_types\file_list_type::files_only);
+                    $f = app\file_utils\file_from_query_string(app\file_list_types\file_list_type::files_only);
                     app\file_utils\display_ini_file($base, $d, $f, $url);
                 ?>
                 <br>

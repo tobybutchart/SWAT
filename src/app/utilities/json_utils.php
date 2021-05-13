@@ -1,6 +1,11 @@
 <?php
     namespace app\json_utils;
 
+/**
+ *  returns readable JSON error
+ *
+ *  @return    string    error message
+ */
     function get_last_json_error(){
         switch (json_last_error()) {
             case JSON_ERROR_NONE:
@@ -27,6 +32,12 @@
         }
     }
 
+/**
+ *  returns true if string is valid JSON
+ *
+ *  @param     string     $string    string to check
+ *  @return    boolean               is JSON
+ */
     function is_valid_json(string $string) {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);

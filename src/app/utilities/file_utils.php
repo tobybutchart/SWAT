@@ -3,11 +3,27 @@
 
     include_once "./app/classes/file_list_types.php";
 
+/**
+ *  sanitises file name from RecursiveIteratorIterator (i.e. remove ., .., etc.)
+ *
+ *  @param     string    $dir     directory
+ *  @param     string    $base    base path
+ *  @return    string             file name
+ */
     function sanitise_file_name(string $dir, string $base){
         $s = str_replace($base, "", $dir);
         return rtrim($s, ".");
     }
 
+/**
+ *  takes a directory, returns array containing all files/dirs
+ *
+ *  @param     string    $dir               directory to parse
+ *  @param     int       $file_list_type    whether files or dirs - defined in file_list_types.php
+ *  @param     string    $extension         file extension to filter by
+ *  @param     bool      $ascending         order flag (true = ascending)
+ *  @return    array                        all files/dirs
+ */
     function file_list_to_array(string $dir, int $file_list_type, string $extension, bool $ascending){
         $a = [];
 
@@ -33,7 +49,13 @@
         return $a;
     }
 
-    function file_from_query_string(string $base, int $file_list_type){
+/**
+ *  checks URI for query string of file/dir name
+ *
+ *  @param     int       $file_list_type    whether files or dirs - defined in file_list_types.php
+ *  @return    string                       file/dir name
+ */
+    function file_from_query_string(int $file_list_type){
         $s = '';
         $query_strings = '';
 
@@ -52,20 +74,34 @@
         return $s;
     }
 
-    function array_to_dropdown(array $array, string $base, string $url){
+/**
+ *  turns array into dropdown list - used for logs page
+ *
+ *  @param     array     $array    array to use
+ *  @param     string    $url      base URL for anchors
+ *  @return    void
+ */
+    function array_to_dropdown(array $array, string $url){
         echo '<div class="dropdown">'.PHP_EOL;
         echo '<a class="btn btn-secondary dropdown-toggle swat-btn-dropdown" href="#" role="button" id="dropdown-menu-link" data-bs-toggle="dropdown" aria-expanded="false">'.PHP_EOL;
         echo 'Select directory'.PHP_EOL;
         echo '</a>'.PHP_EOL;
         echo '<ul class="dropdown-menu" aria-labelledby="dropdown-menu-link">'.PHP_EOL;
             foreach($array as $item) {
-                echo '<li><a class="dropdown-item" href="'.$url.'?d='.$item.'&f='.file_from_query_string($base, \app\file_list_types\file_list_type::files_only).'">'.$item.'</a></li>'.PHP_EOL;
+                echo '<li><a class="dropdown-item" href="'.$url.'?d='.$item.'&f='.file_from_query_string(\app\file_list_types\file_list_type::files_only).'">'.$item.'</a></li>'.PHP_EOL;
             }
         echo '</ul>'.PHP_EOL;
         echo '</div>'.PHP_EOL;
     }
 
-    function array_to_list_group(array $array, string $base, string $url){
+/**
+ *  turns array into list group
+ *
+ *  @param     array     $array    array to use
+ *  @param     string    $url      base URL for anchors
+ *  @return    void
+ */
+    function array_to_list_group(array $array, string $url){
         echo '<div class="list-group swat-logs-div">'.PHP_EOL;
 
         $item_count = 0;
@@ -73,7 +109,7 @@
         foreach($array as $item) {
             $item_count++;
             $class = $item_count % 2 == 0 ? 'dark' : 'light';
-            echo '<a href="'.$url.'?d='.file_from_query_string(__DIR__, \app\file_list_types\file_list_type::dirs_only).'&f='.$item.'" class="list-group-item list-group-item-action list-group-item-'.$class.'">'.$item.'</a>'.PHP_EOL;
+            echo '<a href="'.$url.'?d='.file_from_query_string(\app\file_list_types\file_list_type::dirs_only).'&f='.$item.'" class="list-group-item list-group-item-action list-group-item-'.$class.'">'.$item.'</a>'.PHP_EOL;
         }
 
         if($item_count === 0){
@@ -83,6 +119,14 @@
         echo '</div>'.PHP_EOL;
     }
 
+/**
+ *  displays a log file on logs page
+ *
+ *  @param     string    $base    base path
+ *  @param     string    $dir     directory name
+ *  @param     string    $file    file name
+ *  @return    void
+ */
     function display_log_file(string $base, string $dir, string $file){
         echo '<div class="h-100">'.PHP_EOL;
         echo '<div class="card h-100" >'.PHP_EOL;
@@ -114,6 +158,12 @@
         echo '</div>'.PHP_EOL;
     }
 
+/**
+ *  formats HTML displayed on config page
+ *
+ *  @param     string    $line    line to render
+ *  @return    string             HTML to display
+ */
     function format_ini_text(string $line){
         if (strlen($line) > 0){
             switch ($line[0]) {
@@ -132,6 +182,12 @@
         }
     }
 
+/**
+ *  formats HTML displayed on logs page
+ *
+ *  @param     string    $line    line to render
+ *  @return    string             HTML to display
+ */
     function format_log_text(string $line){
         $a = explode('][', $line);
         $s = '';
@@ -176,12 +232,18 @@
             }
         }
 
-
         return $s.'<br>'.PHP_EOL;
     }
 
+/**
+ *  displays ini file in <code> tag
+ *
+ *  @param     string    $base    base path
+ *  @param     string    $dir     directory
+ *  @param     string    $file    file name
+ *  @return    void             
+ */
     function display_ini_file(string $base, string $dir, string $file){
-        /*echo '<form class="h-100"  name="input" action="" method="post">'.PHP_EOL;*/
         echo '<div class="card h-100" >'.PHP_EOL;
         echo '<code contenteditable="true" class="form-control card-body swat-logs-div" id="swat-ini-file" style="font-family: Consolas,monaco,monospace; font-size: 12px;" name="swat-config-contents">'.PHP_EOL;
 
@@ -201,8 +263,6 @@
         echo '</code>'.PHP_EOL;
         echo '<ul class="list-group list-group-flush">'.PHP_EOL;
         echo '<li class="list-group-item"><b>File:</b> '.$_file.'</li>'.PHP_EOL;
-        //echo '<li class="list-group-item"><button type="submit" class="btn btn-swat btn-sm btn-swat-save-fr '.$btn_state.'" name="swat-config-save-contents">Save</button></li>'.PHP_EOL;
         echo '</ul>'.PHP_EOL;
         echo '</div>'.PHP_EOL;
-        /*echo '</form>'.PHP_EOL;*/
     }
