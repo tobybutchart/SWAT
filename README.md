@@ -32,7 +32,7 @@ To use SWAT download the latest [release](https://github.com/tobybutchart/SWAT/r
 * login\login_controller.php (this is your custom login page - optional)
 * pages\index.php (this will be your front page)
 
-Once the above is complete, to add a new page, create a file in pages with the name of the URI you wan to point to that page.  
+Once the above is complete, to add a new page, create a file in the pages directory with the name of the URI you wan to point to that page.  
 
 E.g.: create pages\hello-world.php containing the following:
 ```HTML
@@ -40,7 +40,7 @@ E.g.: create pages\hello-world.php containing the following:
 <p>Welcome to SWAT</p>
 ```  
 
-Will produce the following from https://URL/hello-world  
+This will produce the following from https://URL/hello-world - the header and footer will be injected automatically.
 
 <img src="res/hello-world.png" alt="Hello World!">  
 
@@ -51,16 +51,22 @@ E.g.: a file created in: \shop\products\wood.php will create the following URI h
 SWAT uses [Bootstrap 5](https://getbootstrap.com/), so all valid Bootstrap classes are available.
 
 ##  Configuration
-The configuration for a page is set in config\pages.ini and is used to define the functionality of each page. This is set for the whole website within the [global] section, but can be overridden on a page by page basis using the pages URI as the section header i.e. [hello-world] will override settings for the page https://URL/hello-world - any settings not overridden will be picked up by the global section.  
+The configuration for a page is set in config\pages.ini and is used to define the functionality of each page. This is set for the whole website within the [global] section, but can be overridden on a page by page basis using the pages URI as the section header i.e. [hello-world] will override settings for the page https://URL/hello-world - any settings not overridden will be picked up by the global section. To understand what can be configured see the comments in config\pages.ini:  
+
+<img src="res/config.png" alt="Config Settings">  
 
 ## Cache-breakers
-Cache-breakers are included in the config file config\versions.ini and are included to all JS and CSS files. To force a browser to re-pull all cached CSS, update the version number in the CSS key.
+Cache-breakers are included in the config file config\versions.ini and are added as a trailing query param to all JS and CSS files. To force a browser to re-pull all cached CSS, update the version number in the CSS key:  
+
+<img src="res/cache-breaker.png" alt="Cache Breakers">
 
 ## 404
 Any URIs requested that do not exist will be routed to a custom 404 page, and will be logged. To see logs, go to logs\yyyy\mm\dd to view.
 
 ## Logging
-A log viewer is available by default so issues can be looked at without server access. To view your logs navigate to https://URL/logs. This will need a login set up in config\credentials.ini.
+A log viewer is available by default so issues can be looked at without server access. To view your logs navigate to https://URL/logs. This will need a login set up in config\credentials.ini.  
+
+<img src="res/log-viewer.png" alt="Log Viewer">
 
 ## Login
 A login system exists in SWAT for both internal users and external users. To change the login functionality alter the users API in api\users\get.php.
