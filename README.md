@@ -18,8 +18,6 @@
 <hr>
 
 ## Description
-A Simple Web and API Template  
-
 A <b>S</b>imple-<b>W</b>eb-and-<b>A</b>PI-<b>T</b>emplate  
 
 SWAT is a web template for getting simple sites up and running quickly with PHP.  
@@ -35,15 +33,19 @@ To use SWAT download the latest [release](https://github.com/tobybutchart/SWAT/r
 * pages\index.php (this will be your front page)
 
 Once the above is complete, to add a new page, create a file in pages with the name of the URI you wan to point to that page.  
+
 E.g.: create pages\hello-world.php containing the following:
 ```HTML
 <h1>Hello World!</h1>
 <p>Welcome to SWAT</p>
-```
-Will produce the following from https://URL/hello-world
+```  
+
+Will produce the following from https://URL/hello-world  
+
 <img src="res/hello-world.png" alt="Hello World!">  
 
-For nested pages, add a directory that you want the URI to become (this is useful for grouping functionality).  
+For nested pages, add a directory that you want the URI to become (this is useful for grouping functionality).   
+
 E.g.: a file created in: \shop\products\wood.php will create the following URI https://URL/shop/products/wood
 
 SWAT uses [Bootstrap 5](https://getbootstrap.com/), so all valid Bootstrap classes are available.
@@ -66,8 +68,25 @@ A login system exists in SWAT for both internal users and external users. To cha
 ## APIs  
 An API framework exists in SWAT and can be used in a similar way to the pages. To create a new API, add a file to the api directory, the API URI will be dictated by the file name. i.e. api\products\get.php will translate to https://URL/api/products/get.
 
+## Extended functionality
+To extend the functionality of a page/pages add a directory with the intended URI with a file inside called DIRECTORY_controller.php, i.e. \products\products_controller.php. This will override any pages with the same URI (https://URL/products), meaning all functionality is pulled from the PHP controller. See 404\404_controller.php for a working example.
+
 ## Directory Structure
-directory structure
+Directory | Purpose |
+ -------- | ------- |
+ 404 | Contains functionality for displaying/logging unknown requests |
+ api | Contains all endpoints as flat PHP files |
+ app\classes | Contains all classes used by SWAT |
+ app\utilities | Contains all function oriented scripts used by SWAT
+ components | Add custom components here i.e. carousel.php, banner.php, etc. |
+ config | All config settings |
+ defs | All define constants |
+ login | Login business logic |
+ logout | Logout business logic |
+ logs | Contains all log files and log viewer (logs_controller.php) |
+ pages | Contains all flat pages to be used within SWAT |
+ temp | Contains PHP session files for SWAT |
+ web | All public facing web files i.e. CSS, JavaScript, etc. |
 
 ## Roadmap
 Date | Feature | Status |
